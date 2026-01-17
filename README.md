@@ -1,4 +1,4 @@
-# Hygraph Commerce Starter
+# WiseGadgets Web Application
 
 Build modern, SEO ready commerce storefronts with Hygraph, Next.js, Stripe and Tailwind CSS
 
@@ -65,19 +65,12 @@ module.exports = {
       value: 'en',
       label: 'English',
       default: true
-    },
-    {
-      value: 'de',
-      label: 'German'
     }
   ],
   currencies: [
     {
-      code: 'GBP',
+      code: 'NGN',
       default: true
-    },
-    {
-      code: 'EUR'
     }
   ]
 }

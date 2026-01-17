@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import { GitHubIcon, TwitterIcon } from '@/icons'
+import { TwitterIcon } from '@/icons'
 import { Select } from '@/ui/form'
 import { currencies, locales } from 'hygraph.config'
 import { useSettingsContext } from '@/context/settings'
@@ -110,17 +110,13 @@ function Footer({ categories = [], collections = [] }) {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
-            <Link href="https://twitter.com/hygraphcom" className="text-gray-400 hover:text-gray-500">
+            <Link href="https://twitter.com/wisegadgets" className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">Twitter</span>
               <TwitterIcon className="h-6 w-6" aria-hidden="true" />
             </Link>
-            <Link href="https://github.com/Hygraph" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">GitHub</span>
-              <GitHubIcon className="h-6 w-6" aria-hidden="true" />
-            </Link>
           </div>
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-            &copy; {currentYear} GraphCMS GmbH. All rights reserved.
+            &copy; {currentYear} WiseGadgets. All rights reserved.
           </p>
         </div>
       </div>

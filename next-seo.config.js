@@ -1,11 +1,10 @@
-const description =
-  'Learn how to build modern, SEO ready commerce storefronts with Hygraph, Next.js, Stripe, and Vercel.'
-const title = 'Build Modern Commerce Experiences with a Headless CMS'
-const url = 'https://commerce.withheadlesscms.com'
+const description = 'Buy the latest gadgets and electronics with ease.'
+const title = 'Buy smart, Buy Wise.'
+const url = 'https://wisegadgets.vercel.app'
 
 const seo = {
   title,
-  titleTemplate: '%s | Hygraph',
+  titleTemplate: '%s | WiseGadgets',
   description,
   openGraph: {
     description,
@@ -14,8 +13,8 @@ const seo = {
     url
   },
   twitter: {
-    handle: '@Hygraphcom',
-    site: '@Hygraphcom'
+    handle: '@wisegadgets',
+    site: '@wisegadgets',
   }
 }
 
