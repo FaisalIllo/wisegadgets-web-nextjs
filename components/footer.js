@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import { TwitterIcon } from '@/icons'
 import { Select } from '@/ui/form'
 import { currencies, locales } from 'hygraph.config'
 import { useSettingsContext } from '@/context/settings'
+import { Twitter } from 'lucide-react'
 
 function Footer({ categories = [], collections = [] }) {
   const router = useRouter()
@@ -29,7 +29,7 @@ function Footer({ categories = [], collections = [] }) {
   const currentYear = new Date().getUTCFullYear()
 
   return (
-    <footer className="bg-white" aria-labelledby="footerHeading">
+    <footer className="bg-gray-100 mt-10" aria-labelledby="footerHeading">
       <h2 id="footerHeading" className="sr-only">
         Footer
       </h2>
@@ -51,7 +51,7 @@ function Footer({ categories = [], collections = [] }) {
                           }`}
                           className="text-base text-gray-500 hover:text-gray-900"
                         >
-                            {category.name}
+                          {category.name}
                         </Link>
                       </li>
                     ))}
@@ -110,9 +110,12 @@ function Footer({ categories = [], collections = [] }) {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
-            <Link href="https://twitter.com/wisegadgets" className="text-gray-400 hover:text-gray-500">
+            <Link
+              href="https://twitter.com/wisegadgets"
+              className="text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">Twitter</span>
-              <TwitterIcon className="h-6 w-6" aria-hidden="true" />
+              <Twitter className="h-6 w-6" aria-hidden="true" />
             </Link>
           </div>
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">

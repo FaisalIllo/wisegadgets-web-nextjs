@@ -2,49 +2,56 @@ import Link from 'next/link'
 import { useCart } from 'react-use-cart'
 
 import { formatCurrencyValue } from '@/utils/format-currency-value'
-import { HygraphSVG } from '@/svgs'
-import { ShoppingCartIcon } from '@/icons'
 import { useSettingsContext } from '@/context/settings'
+import { ShoppingCart } from 'lucide-react'
 
 function Header({ pages = [] }) {
   const { cartTotal } = useCart()
   const { activeCurrency } = useSettingsContext()
 
   return (
-    <header className="max-w-7xl mx-auto bg-white flex-grow flex items-center justify-between px-4 sm:px-6">
-      <div className="py-6 w-full">
-        <nav className="flex items-center justify-between flex-wrap space-x-4">
-          <Link href="/">
-            <HygraphSVG className="h-auto text-primary w-5" />
+    <header className="sticky top-0 z-50 bg-white py-[0.5rem] shadow-sm border-b border-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0">
+            <p className="font-bold text-lg text-gray-900 hover:text-gray-700 transition">
+              WiseGadgets
+            </p>
           </Link>
-          {pages.length ? (
-            <ul className="hidden md:mx-auto md:block md:flex-grow">
+
+          {/* Navigation Links */}
+          {pages.length > 0 && (
+            <ul className="hidden md:flex md:flex-grow md:justify-center md:space-x-1">
               {pages.map((page) => (
-                <li
-                  key={page.id}
-                  className="block my-4 md:inline-block md:my-0"
-                >
-                  <Link href={`/${page.type.toLowerCase()}/${page.slug}`} className="text-lightgray hover:text-slategray hover:bg-gainsboro rounded-full py-2 px-3 font-medium">
+                <li key={page.id}>
+                  <Link
+                    href={`/${page.type.toLowerCase()}/${page.slug}`}
+                    className="text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md py-2 px-3 font-medium transition"
+                  >
                     {page.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          ) : null}
-          <div className="flex items-center">
-            <Link href="/cart" className="flex space-x-2">
-              <ShoppingCartIcon
-                className="h-6 w-6 text-gray-400"
-                aria-hidden="true"
-              />
-              <span className="text-gray-900">
-                {formatCurrencyValue({
-                  currency: activeCurrency,
-                  value: cartTotal
-                })}
-              </span>
-            </Link>
-          </div>
+          )}
+
+          {/* Cart */}
+          <Link
+            href="/cart"
+            className="flex items-center space-x-2 text-gray-900 hover:text-gray-700 transition"
+          >
+            <span className="text-base font-medium">
+              {formatCurrencyValue({
+                currency: activeCurrency,
+                value: cartTotal
+              })}
+            </span>
+            <ShoppingCart
+              className="h-6 w-6 text-gray-400 hover:text-gray-600 transition"
+              aria-hidden="true"
+            />
+          </Link>
         </nav>
       </div>
     </header>
