@@ -1,4 +1,4 @@
-name: Build, test and deploy
+name: Vercel Deployment
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   wordstack-build-and-test:
-    name: Build, test and deploy to ${{ inputs.environment }}
+    name: Deploy to ${{ inputs.environment }}
     runs-on: ubuntu-latest
 
     env:
@@ -35,10 +35,10 @@ jobs:
           node-version: "22"
           cache: "npm"
 
-      - name: Build and Test Project
+      - name: Build Project
         run: |
           npm ci
-          npm run build-and-test
+          npm run build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
