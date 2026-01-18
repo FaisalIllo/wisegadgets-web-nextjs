@@ -1,0 +1,65 @@
+name: Build, test and deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Vercel environment to deploy to"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - prod
+
+jobs:
+  wordstack-build-and-test:
+    name: Build, test and deploy to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      HYGRAPH_MUTATION_TOKEN: ${{ secrets.HYGRAPH_MUTATION_TOKEN }}
+      HYGRAPH_QUERY_TOKEN: ${{ secrets.HYGRAPH_QUERY_TOKEN }}
+      HYGRAPH_ENDPOINT: ${{ secrets.HYGRAPH_ENDPOINT }}
+      VERCEL_ENV: ${{ inputs.environment }}
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Build and Test Project
+        run: |
+          npm ci
+          npm run build-and-test
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: |
+          vercel pull \
+            --yes \
+            --environment=${VERCEL_ENV} \
+            --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: |
+          if [ "$VERCEL_ENV" = "prod" ]; then
+            vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
+          else
+            vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
+            vercel alias \
+              --token=${{ secrets.VERCEL_TOKEN }} \
+              set "$(cat domain.txt)" wordstack-preview.vercel.app
+          fi
