@@ -108,10 +108,11 @@ function Footer({ categories = [], collections = [] }) {
             </form>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
+        <div className="border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
             <Link
               href="https://twitter.com/wisegadgets"
+              target="_blank"
               className="text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">Twitter</span>
