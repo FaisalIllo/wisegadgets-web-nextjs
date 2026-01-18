@@ -1,7 +1,6 @@
 import * as React from 'react'
+import { ChevronDown } from 'lucide-react'
 import { FormProvider, useFormContext } from 'react-hook-form'
-
-import { ChevronDownSmallIcon } from '@/components/icons'
 
 function Form({ children, methods, onSubmit, ...props }) {
   return (
@@ -83,10 +82,7 @@ const Select = React.forwardRef(
             ))}
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
-            <ChevronDownSmallIcon
-              className="h-4 w-4 text-gray-400"
-              aria-hidden="true"
-            />
+            <ChevronDown className="h-4 w-4 text-gray-400" aria-hidden="true" />
           </div>
         </div>
         {children}

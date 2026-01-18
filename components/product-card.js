@@ -11,8 +11,11 @@ function ProductCard({ id, images, name, price, slug }) {
 
   return (
     <article key={id}>
-      <Link href={`/products/${slug}`} className="group no-underline w-full h-full flex">
-        <div className="bg-gray-50 rounded-lg cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">
+      <Link
+        href={`/products/${slug}`}
+        className="group no-underline w-full h-full flex"
+      >
+        <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">
           {primaryImage ? (
             <Image
               src={primaryImage.url}
@@ -27,7 +30,7 @@ function ProductCard({ id, images, name, price, slug }) {
             <p className="text-gray-800 font-semibold text-lg group-hover:text-indigo-600 mb-1">
               {name}
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-base">
               {formatCurrencyValue({
                 currency: activeCurrency,
                 value: price

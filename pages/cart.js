@@ -4,17 +4,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCart } from 'react-use-cart'
 import Button from '@/components/ui/button'
-import {
-  ChevronDownSmallIcon,
-  ChevronUpSmallIcon,
-  ShoppingCartIcon,
-  XSmallIcon
-} from '@/components/icons'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import getPageData from '@/lib/get-page-data'
 import SEO from '@/components/seo'
 import { useSettingsContext } from '@/context/settings'
 import useSubmissionState from 'hooks/use-form-submission'
+import { ChevronDown, ChevronUp, ShoppingCart, X } from 'lucide-react'
 
 function Cart() {
   const { cartTotal, isEmpty, items, removeItem, updateItemQuantity } =
@@ -33,9 +28,9 @@ function Cart() {
 
   if (isEmpty)
     return (
-      <div className="max-w-2xl min-h-screen mx-auto flex flex-col items-center justify-center">
+      <div className="max-w-2xl mx-auto flex flex-col items-center justify-center">
         <SEO title="Checkout" />
-        <ShoppingCartIcon className="h-12 w-12 text-gray-400" />
+        <ShoppingCart className="h-12 w-12 text-gray-400" />
         <p className="text-gray-600 text-lg">Your cart is empty</p>
         <Link href="/" className="text-indigo-600 hover:underline mt-2">
           Continue Shopping
@@ -44,7 +39,7 @@ function Cart() {
     )
 
   return (
-    <div className="max-w-2xl min-h-screen mx-auto">
+    <div className="max-w-2xl mx-auto">
       <SEO title="Checkout" />
       <div className="space-y-3 md:space-y-0">
         {items.map((item) => (
@@ -90,7 +85,7 @@ function Cart() {
               onClick={onRemove}
               disabled={isLoading}
             >
-              <XSmallIcon className="h-3 w-3" />
+              <X className="h-3 w-3" />
               Remove
             </button>
           </div>
@@ -101,7 +96,7 @@ function Cart() {
             onClick={onIncrement}
             disabled={isLoading}
           >
-            <ChevronUpSmallIcon className="h-4 w-4" />
+            <ChevronUp className="h-4 w-4" />
           </button>
           <span className="mx-3 md:mx-6 p-1">{item.quantity}</span>
           <button
@@ -109,7 +104,7 @@ function Cart() {
             onClick={onDecrement}
             disabled={isLoading}
           >
-            <ChevronDownSmallIcon className="h-4 w-4" />
+            <ChevronDown className="h-4 w-4" />
           </button>
         </div>
         <div className="text-right md:w-1/5">

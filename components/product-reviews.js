@@ -2,7 +2,7 @@ import * as React from 'react'
 import useSWR from 'swr'
 import cc from 'classcat'
 
-import { ChevronDownSmallIcon } from '@/icons'
+import { ChevronDown } from 'lucide-react'
 import hygraphClient from '@/lib/hygraph-client'
 import { ProductReviewsQuery } from '@/graphql/queries/reviews'
 import ProductReviewForm from '@/components/product-review-form'
@@ -31,7 +31,7 @@ function ProductReviews({ product }) {
             )}
           </span>
           <span className="ml-6 h-7 flex items-center">
-            <ChevronDownSmallIcon
+            <ChevronDown
               className={cc([
                 'h-6 w-6 transform',
                 isExpanded ? '-rotate-180' : 'rotate-0'

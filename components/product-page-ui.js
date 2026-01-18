@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 
 import Button from '@/ui/button'
-import { ChevronDownSmallIcon } from '@/icons'
+import { ChevronDown } from 'lucide-react'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import ProductReviews from '@/components/product-reviews'
 import { useSettingsContext } from '@/context/settings'
@@ -15,7 +15,7 @@ function ProductPageUI({ product }) {
   const { activeCurrency } = useSettingsContext()
   const [variantQuantity, setVariantQuantity] = React.useState(1)
   const [activeVariantId, setActiveVariantId] = React.useState(
-    router.query.variantId || product.variants[0].id
+    router.query.variantId || product.variants[0]?.id
   )
 
   React.useEffect(() => {
@@ -110,7 +110,7 @@ function ProductPageUI({ product }) {
                   ))}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
-                  <ChevronDownSmallIcon
+                  <ChevronDown
                     className="h-4 w-4 text-gray-400"
                     aria-hidden="true"
                   />
@@ -144,7 +144,7 @@ function ProductPageUI({ product }) {
                 })}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
-                <ChevronDownSmallIcon
+                <ChevronDown
                   className="h-4 w-4 text-gray-400"
                   aria-hidden="true"
                 />
