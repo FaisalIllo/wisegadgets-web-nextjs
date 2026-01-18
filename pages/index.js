@@ -6,7 +6,7 @@ function IndexPage({ products }) {
   return <ProductGrid products={products} />
 }
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   const pageData = await getPageData({ locale })
   const { products } = await getAllProducts({ locale })
 
