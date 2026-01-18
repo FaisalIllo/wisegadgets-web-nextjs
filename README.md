@@ -1,6 +1,6 @@
-# WiseGadgets Web Application
+# Wise Gadgets Web Application
 
-Build modern, SEO ready commerce storefronts with Hygraph, Next.js, Stripe and Tailwind CSS
+Build modern, SEO ready commerce storefronts with Hygraph, Next.js and Tailwind CSS
 
 [![Clone project](https://graphcms.com/button)](https://app.graphcms.com/clone/d6ae678601534be5a7bde7fba69acd24?name=Commerce%20Shop)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGraphCMS%2Fgraphcms-commerce-starter&env=HYGRAPH_MUTATION_TOKEN,HYGRAPH_QUERY_TOKEN,HYGRAPH_ENDPOINT,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&envDescription=Stripe%20keys%20and%20GraphCMS%20tokens&envLink=https%3A%2F%2Fgithub.com%2FGraphCMS%2Fgraphcms-commerce-starter%23usage&demo-title=GraphCMS%20Commerce%20Starter&demo-description=Build%20modern%2C%20SEO%20ready%20commerce%20storefronts%20with%20GraphCMS%2C%20Next.js%2C%20Stripe%20and%20Tailwind%20CSS&demo-url=https%3A%2F%2Fcommerce.withheadlesscms.com)
@@ -41,16 +41,11 @@ npm install
 HYGRAPH_MUTATION_TOKEN=
 HYGRAPH_QUERY_TOKEN=
 HYGRAPH_ENDPOINT=
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SIGNING_SECRET=
 ```
 
-4. Setup a [Stripe webhook](https://stripe.com/docs/payments/handling-payment-events) for the `checkout.session.completed` event to order to enable Hygraph fulfilment via the mutation API.
+4. Configure support for more locales or currencies in [`hygraph.config.js`](hygraph.config.js) if required. Learn more [here](#configuration).
 
-5. Configure support for more locales or currencies in [`hygraph.config.js`](hygraph.config.js) if required. Learn more [here](#configuration).
-
-6. Run `npm run dev`
+5. Run `npm run dev`
 
 ## Configuration
 
