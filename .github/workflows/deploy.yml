@@ -61,5 +61,5 @@ jobs:
             vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
             vercel alias \
               --token=${{ secrets.VERCEL_TOKEN }} \
-              set "$(cat domain.txt)" wordstack-preview.vercel.app
+              set "$(cat domain.txt)" wisegadgets.vercel.app
           fi
