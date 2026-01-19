@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 
 import Button from '@/ui/button'
+import ImageCarousel from '@/ui/image-carousel'
 import { ChevronDown } from 'lucide-react'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import ProductReviews from '@/components/product-reviews'
@@ -30,8 +31,6 @@ function ProductPageUI({ product }) {
   const updateQuantity = (event) =>
     setVariantQuantity(Number(event.target.value))
   const updateVariant = (event) => setActiveVariantId(event.target.value)
-
-  const [primaryImage] = product.images
 
   const addToCart = () => {
     const itemMetadata = router.locales.reduce(
@@ -62,12 +61,9 @@ function ProductPageUI({ product }) {
     <div className="lg:flex -mx-6">
       <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
         <div className="w-full overflow-hidden relative bg-gainsboro rounded-lg">
-          <Image
-            src={primaryImage.url}
-            height={primaryImage.height}
-            width={primaryImage.width}
+          <ImageCarousel
+            images={product.images.map((img) => img.url)}
             alt={product.name}
-            title={product.name}
           />
         </div>
       </div>
