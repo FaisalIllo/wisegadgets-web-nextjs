@@ -14,7 +14,6 @@ function ProductPageUI({ product }) {
   const { addItem } = useCart()
   const router = useRouter()
   const { activeCurrency } = useSettingsContext()
-  const [variantQuantity, setVariantQuantity] = React.useState(1)
   const [activeVariantId, setActiveVariantId] = React.useState(
     router.query.variantId || product.variants[0]?.id
   )
@@ -25,11 +24,6 @@ function ProductPageUI({ product }) {
     router.replace(url, url, { shallow: true })
   }, [activeVariantId])
 
-  const activeVariant = product.variants.find(
-    (variant) => variant.id === activeVariantId
-  )
-  const updateQuantity = (event) =>
-    setVariantQuantity(Number(event.target.value))
   const updateVariant = (event) => setActiveVariantId(event.target.value)
 
   const addToCart = () => {
@@ -53,7 +47,7 @@ function ProductPageUI({ product }) {
         price: product.price,
         ...itemMetadata
       },
-      variantQuantity
+      1
     )
   }
 
@@ -82,62 +76,27 @@ function ProductPageUI({ product }) {
         <div className="mb-6">
           <p className="leading-loose text-lightgray">{product.description}</p>
         </div>
-        <div className="md:flex md:flex-wrap -mx-3">
-          {product.variants.length > 1 ? (
-            <div className="md:w-3/4 px-3 mb-6">
-              <label
-                className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
-                htmlFor="style"
-              >
-                Style
-              </label>
-              <div className="relative">
-                <select
-                  id="style"
-                  name="style"
-                  value={activeVariantId}
-                  className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
-                  onChange={updateVariant}
-                >
-                  {product.variants.map((variant) => (
-                    <option key={variant.id} value={variant.id}>
-                      {variant.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
-                  <ChevronDown
-                    className="h-4 w-4 text-gray-400"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : null}
-          <div className="md:w-1/4 px-3 mb-6">
+        {product.variants.length > 1 ? (
+          <div className="mb-6">
             <label
               className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
-              htmlFor="quantity"
+              htmlFor="style"
             >
-              Quantity
+              Style
             </label>
             <div className="relative">
               <select
-                id="quantity"
-                name="quantity"
-                value={variantQuantity}
+                id="style"
+                name="style"
+                value={activeVariantId}
                 className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
-                onChange={updateQuantity}
+                onChange={updateVariant}
               >
-                {Array.from({ length: 5 }, (_, i) => {
-                  const value = Number(i + 1)
-
-                  return (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  )
-                })}
+                {product.variants.map((variant) => (
+                  <option key={variant.id} value={variant.id}>
+                    {variant.name}
+                  </option>
+                ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
                 <ChevronDown
@@ -147,7 +106,7 @@ function ProductPageUI({ product }) {
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
         <Button onClick={addToCart}>Add to cart</Button>
 
         <ProductReviews product={product} />
