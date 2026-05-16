@@ -15,7 +15,7 @@ function ProductCard({ id, images, name, price, slug }) {
         href={`/products/${slug}`}
         className="group no-underline w-full h-full flex"
       >
-        <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6 transition-shadow hover:shadow-md">
+        <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-2 py-4 sm:px-3 sm:py-6 md:px-6 transition-shadow hover:shadow-md">
           {primaryImage ? (
             <Image
               src={primaryImage.url}
@@ -27,11 +27,11 @@ function ProductCard({ id, images, name, price, slug }) {
             />
           ) : null}
 
-          <div className="pt-3 md:pt-6 text-center">
-            <p className="text-gray-800 font-semibold text-lg group-hover:text-blue-400 mb-1">
+          <div className="pt-3 sm:pt-6 text-center">
+            <p className="text-gray-800 font-semibold text-sm sm:text-lg group-hover:text-blue-400 mb-1">
               {name}
             </p>
-            <p className="text-gray-400 text-base">
+            <p className="text-gray-400 text-sm sm:text-base">
               {formatCurrencyValue({
                 currency: activeCurrency,
                 value: price
