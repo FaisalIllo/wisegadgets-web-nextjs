@@ -17,7 +17,7 @@ function ProductGrid({ products, searchQuery }) {
   }
 
   return (
-    <div className="gap-8 grid sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
       {products.map(ProductCard)}
     </div>
   )
