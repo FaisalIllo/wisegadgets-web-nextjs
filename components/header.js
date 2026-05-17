@@ -2,17 +2,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCart } from 'react-use-cart'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import { useSettingsContext } from '@/context/settings'
 import { ShoppingCart, Menu, Search, X } from 'lucide-react'
 
-function Header({ pages = [] }) {
+function Header({ pages = [], productSuggestions = [] }) {
   const { cartTotal, totalItems = 0 } = useCart()
   const router = useRouter()
   const { activeCurrency } = useSettingsContext()
   const [isHamburgerMenuOpen, setHamburgerMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [isSearchFocused, setSearchFocused] = useState(false)
 
   useEffect(() => {
     if (typeof router.query.q === 'string') {
@@ -22,6 +23,18 @@ function Header({ pages = [] }) {
 
     setSearchTerm('')
   }, [router.query.q])
+
+  const matchingSuggestions = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase()
+
+    if (!query) return []
+
+    return productSuggestions
+      .filter((product) => product.name?.toLowerCase().includes(query))
+      .slice(0, 5)
+  }, [productSuggestions, searchTerm])
+  const shouldShowSuggestions =
+    isSearchFocused && matchingSuggestions.length > 0
 
   const handleSearchSubmit = (event) => {
     event.preventDefault()
@@ -34,6 +47,14 @@ function Header({ pages = [] }) {
     })
 
     setHamburgerMenuOpen(false)
+    setSearchFocused(false)
+  }
+
+  const handleSuggestionClick = (product) => {
+    setSearchTerm(product.name)
+    setSearchFocused(false)
+    setHamburgerMenuOpen(false)
+    router.push(`/products/${product.slug}`)
   }
 
   return (
@@ -65,30 +86,56 @@ function Header({ pages = [] }) {
             )}
           </div>
 
-          <form
-            role="search"
-            onSubmit={handleSearchSubmit}
-            className="order-3 flex w-full items-center rounded-full border border-gray-200 bg-gray-50 px-3 py-2 transition focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-100 md:order-none md:max-w-sm md:flex-1"
-          >
-            <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
-            <label htmlFor="site-search" className="sr-only">
-              Search products
-            </label>
-            <input
-              id="site-search"
-              type="search"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Search gadgets"
-              className="ml-2 w-full bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="ml-2 rounded-full bg-indigo-600 px-3 py-1 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+          <div className="relative order-3 mx-auto w-full max-w-xs md:order-none md:mx-0 md:max-w-sm md:flex-1">
+            <form
+              role="search"
+              onSubmit={handleSearchSubmit}
+              className="flex w-full items-center rounded-full border border-gray-200 bg-gray-50 px-2 py-1.5 transition focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-100 md:px-3 md:py-2"
             >
-              Search
-            </button>
-          </form>
+              <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
+              <label htmlFor="site-search" className="sr-only">
+                Search products
+              </label>
+              <input
+                id="site-search"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
+                placeholder="Search gadgets"
+                className="ml-2 min-w-0 flex-1 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                autoComplete="off"
+              />
+              <button
+                type="submit"
+                className="ml-2 rounded-full bg-indigo-600 px-2 py-1 text-xs font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 md:px-3 md:text-sm"
+              >
+                Search
+              </button>
+            </form>
+
+            {shouldShowSuggestions && (
+              <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
+                {matchingSuggestions.map((product) => (
+                  <button
+                    key={product.id}
+                    type="button"
+                    className="block w-full px-4 py-2 text-left text-sm text-gray-700 transition hover:bg-indigo-50 hover:text-indigo-700 focus:bg-indigo-50 focus:text-indigo-700 focus:outline-none"
+                    onPointerDown={(event) => {
+                      event.preventDefault()
+                      handleSuggestionClick(product)
+                    }}
+                    onClick={(event) => {
+                      if (event.detail === 0) handleSuggestionClick(product)
+                    }}
+                  >
+                    {product.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">

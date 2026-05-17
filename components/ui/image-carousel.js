@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
 export default function ImageCarousel({
@@ -8,6 +8,8 @@ export default function ImageCarousel({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isExpanded, setIsExpanded] = useState(false)
+  const touchStart = useRef(null)
+  const touchMoved = useRef(false)
 
   if (!images?.length) {
     return (
@@ -23,6 +25,39 @@ export default function ImageCarousel({
         ? (prev + 1) % images.length
         : (prev - 1 + images.length) % images.length
     )
+  }
+
+  const handleTouchStart = (event) => {
+    const touch = event.touches[0]
+
+    touchStart.current = { x: touch.clientX, y: touch.clientY }
+    touchMoved.current = false
+  }
+
+  const handleTouchEnd = (event) => {
+    if (!touchStart.current) return
+
+    const touch = event.changedTouches[0]
+    const deltaX = touch.clientX - touchStart.current.x
+    const deltaY = touch.clientY - touchStart.current.y
+    const isHorizontalSwipe =
+      Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)
+
+    touchStart.current = null
+
+    if (!isHorizontalSwipe) return
+
+    touchMoved.current = true
+    navigate(deltaX < 0 ? 'next' : 'prev')
+    window.setTimeout(() => {
+      touchMoved.current = false
+    }, 300)
+  }
+
+  const openExpandedImage = () => {
+    if (touchMoved.current) return
+
+    setIsExpanded(true)
   }
 
   const NavButton = ({ direction, className = '' }) => (
@@ -44,12 +79,14 @@ export default function ImageCarousel({
       <div className="relative w-full bg-gray-100 rounded-lg overflow-hidden group">
         {/* Main Image */}
         <div
-          className="relative w-full h-[50vh] cursor-pointer"
-          onClick={() => setIsExpanded(true)}
+          className="relative w-full h-[50vh] cursor-pointer touch-pan-y"
+          onClick={openExpandedImage}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') setIsExpanded(true)
+            if (e.key === 'Enter') openExpandedImage()
           }}
         >
           <Image
@@ -106,6 +143,8 @@ export default function ImageCarousel({
         <div
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setIsExpanded(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           role="dialog"
           aria-label="Expanded image view"
           onKeyDown={(e) => {
