@@ -12,34 +12,11 @@ import useSubmissionState from 'hooks/use-form-submission'
 import { ChevronDown, ChevronUp, ShoppingCart, X } from 'lucide-react'
 
 function Cart() {
-  const {
-    cartTotal,
-    isEmpty,
-    items,
-    removeItem,
-    setItems,
-    updateItemQuantity
-  } = useCart()
+  const { cartTotal, isEmpty, items, removeItem, updateItemQuantity } =
+    useCart()
   const router = useRouter()
   const { activeCurrency } = useSettingsContext()
   const { submissionLoading } = useSubmissionState()
-  const loadedSharedCart = React.useRef(false)
-
-  React.useEffect(() => {
-    const checkout = router.query.checkout
-
-    if (!router.isReady || !checkout || loadedSharedCart.current) return
-
-    const sharedItems = decodeCartItems(
-      Array.isArray(checkout) ? checkout[0] : checkout
-    )
-
-    if (!sharedItems.length) return
-
-    setItems(sharedItems)
-    loadedSharedCart.current = true
-  }, [router.isReady, router.query.checkout, setItems])
-
   const decrementItemQuantity = (item) =>
     updateItemQuantity(item.id, item.quantity - 1)
 
@@ -49,14 +26,11 @@ function Cart() {
   const handleClick = () => {
     const origin = window.location.origin
     const locale = router.locale || router.defaultLocale
-    const cartLink = `${origin}/cart?checkout=${encodeURIComponent(
-      encodeCartItems(items, router.locales)
-    )}`
     const itemLines = items.map((item, index) => {
       const localizedItem = item[locale] || item[router.defaultLocale] || {}
       const productUrl = localizedItem.slug
         ? `${origin}/products/${localizedItem.slug}`
-        : cartLink
+        : origin
       const itemTotal = formatCurrencyValue({
         currency: activeCurrency,
         value: item.itemTotal
@@ -75,8 +49,7 @@ function Cart() {
       '',
       ...itemLines,
       '',
-      `Cart total: ${cartTotalValue}`,
-      `Cart link: ${cartLink}`
+      `Cart total: ${cartTotalValue}`
     ].join('\n')
     const whatsappUrl = `https://wa.me/2347074058547?text=${encodeURIComponent(
       message
@@ -190,8 +163,8 @@ function Cart() {
   function CartSummary({ total, onCheckout, isLoading }) {
     return (
       <div className="mt-3 md:mt-6 py-3 md:py-6 border-t-2 border-gray-50">
-        <div className="flex flex-col items-end">
-          <div className="flex flex-col items-end mb-3">
+        <div className="flex flex-col items-center md:items-end">
+          <div className="flex flex-col items-center md:items-end mb-3">
             <span className="text-gray-700">Sub total</span>
             <span className="text-xl font-bold text-indigo-600">
               {formatCurrencyValue({ currency: activeCurrency, value: total })}
@@ -208,46 +181,6 @@ function Cart() {
         </div>
       </div>
     )
-  }
-}
-
-function encodeCartItems(items, locales = []) {
-  const shareableItems = items.map((item) => {
-    const localizedMetadata = locales.reduce(
-      (acc, locale) =>
-        item[locale]
-          ? {
-              ...acc,
-              [locale]: item[locale]
-            }
-          : acc,
-      {}
-    )
-
-    return {
-      id: item.id,
-      productId: item.productId,
-      image: item.image,
-      price: item.price,
-      quantity: item.quantity,
-      ...localizedMetadata
-    }
-  })
-
-  return window.btoa(encodeURIComponent(JSON.stringify(shareableItems)))
-}
-
-function decodeCartItems(encodedItems) {
-  try {
-    const decodedItems = JSON.parse(
-      decodeURIComponent(window.atob(encodedItems))
-    )
-
-    if (!Array.isArray(decodedItems)) return []
-
-    return decodedItems
-  } catch (error) {
-    return []
   }
 }
 
