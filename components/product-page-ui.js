@@ -5,7 +5,6 @@ import { useCart } from 'react-use-cart'
 
 import Button from '@/ui/button'
 import ImageCarousel from '@/ui/image-carousel'
-import { ChevronDown } from 'lucide-react'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import ProductReviews from '@/components/product-reviews'
 import { useSettingsContext } from '@/context/settings'
@@ -14,17 +13,7 @@ function ProductPageUI({ product }) {
   const { addItem } = useCart()
   const router = useRouter()
   const { activeCurrency } = useSettingsContext()
-  const [activeVariantId, setActiveVariantId] = React.useState(
-    router.query.variantId || product.variants[0]?.id
-  )
-
-  React.useEffect(() => {
-    const url = `/products/${product.slug}?variant=${activeVariantId}`
-
-    router.replace(url, url, { shallow: true })
-  }, [activeVariantId])
-
-  const updateVariant = (event) => setActiveVariantId(event.target.value)
+  const activeVariantId = product.variants[0]?.id || product.id
 
   const addToCart = () => {
     const itemMetadata = router.locales.reduce(
@@ -76,37 +65,6 @@ function ProductPageUI({ product }) {
         <div className="mb-6">
           <p className="leading-loose text-lightgray">{product.description}</p>
         </div>
-        {product.variants.length > 1 ? (
-          <div className="mb-6">
-            <label
-              className="block text-sm font-bold tracking-widest uppercase mb-2 text-slategray"
-              htmlFor="style"
-            >
-              Style
-            </label>
-            <div className="relative">
-              <select
-                id="style"
-                name="style"
-                value={activeVariantId}
-                className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
-                onChange={updateVariant}
-              >
-                {product.variants.map((variant) => (
-                  <option key={variant.id} value={variant.id}>
-                    {variant.name}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
-                <ChevronDown
-                  className="h-4 w-4 text-gray-400"
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
         <Button onClick={addToCart}>Add to cart</Button>
 
         <ProductReviews product={product} />
