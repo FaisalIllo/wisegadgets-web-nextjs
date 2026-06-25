@@ -4,11 +4,23 @@ import Image from 'next/image'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import { useSettingsContext } from '@/context/settings'
 
-function ProductCard({ id, images, name, price, slug, sold }) {
+function ProductCard({
+  id,
+  images,
+  name,
+  price,
+  slug,
+  sold,
+  compactSoldBadgeOnMobile = false
+}) {
   const { activeCurrency } = useSettingsContext()
 
   const [primaryImage] = images
   const isSold = sold === true
+  const soldBadgeClassName = [
+    'absolute left-3 top-3 z-10 rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
+    compactSoldBadgeOnMobile ? 'origin-top-left scale-[0.69] sm:scale-100' : ''
+  ].join(' ')
 
   return (
     <article key={id}>
@@ -18,7 +30,7 @@ function ProductCard({ id, images, name, price, slug, sold }) {
       >
         <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-2 py-4 sm:px-3 sm:py-6 md:px-6 transition-shadow hover:shadow-md">
           {isSold ? (
-            <div className="absolute left-3 top-3 z-10 rounded-md bg-red-600 px-4 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-md">
+            <div className={soldBadgeClassName}>
               SOLD!
             </div>
           ) : null}
