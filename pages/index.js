@@ -17,7 +17,11 @@ function IndexPage({ products, searchQuery }) {
           </h1>
         </div>
       )}
-      <ProductGrid products={products} searchQuery={searchQuery} />
+      <ProductGrid
+        products={products}
+        searchQuery={searchQuery}
+        compactSoldBadgeOnMobile
+      />
     </React.Fragment>
   )
 }

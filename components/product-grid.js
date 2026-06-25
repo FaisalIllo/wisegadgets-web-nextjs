@@ -1,6 +1,10 @@
 import ProductCard from '@/components/product-card'
 
-function ProductGrid({ products, searchQuery }) {
+function ProductGrid({
+  products,
+  searchQuery,
+  compactSoldBadgeOnMobile = false
+}) {
   if (!products.length) {
     return (
       <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 px-6 py-12 text-center">
@@ -18,7 +22,13 @@ function ProductGrid({ products, searchQuery }) {
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
-      {products.map(ProductCard)}
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          {...product}
+          compactSoldBadgeOnMobile={compactSoldBadgeOnMobile}
+        />
+      ))}
     </div>
   )
 }
