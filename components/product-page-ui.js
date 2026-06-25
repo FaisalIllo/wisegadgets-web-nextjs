@@ -14,6 +14,7 @@ function ProductPageUI({ product }) {
   const router = useRouter()
   const { activeCurrency } = useSettingsContext()
   const activeVariantId = product.variants[0]?.id || product.id
+  const isSold = product.sold === true
 
   const addToCart = () => {
     const itemMetadata = router.locales.reduce(
@@ -65,7 +66,13 @@ function ProductPageUI({ product }) {
         <div className="mb-6">
           <p className="leading-loose text-lightgray">{product.description}</p>
         </div>
-        <Button onClick={addToCart}>Add to cart</Button>
+        {isSold ? (
+          <div className="inline-block rounded-md bg-red-600 px-4 py-3 text-sm font-bold uppercase tracking-widest text-white">
+            SOLD!
+          </div>
+        ) : (
+          <Button onClick={addToCart}>Add to cart</Button>
+        )}
 
         <ProductReviews product={product} />
       </div>
