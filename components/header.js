@@ -68,7 +68,7 @@ function Header({ pages = [], productSuggestions = [] }) {
               className="flex flex-shrink-0 items-center gap-2 text-gray-900 transition hover:text-gray-700"
             >
               <img
-                src="/wisegadgets-logo.svg"
+                src="/wisegadgets-logo.PNG"
                 alt=""
                 className="h-9 w-9 rounded-xl"
                 aria-hidden="true"
