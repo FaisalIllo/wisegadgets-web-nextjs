@@ -96,7 +96,9 @@ function Header({ pages = [], productSuggestions = [] }) {
 
           <div
             className={`relative order-3 mx-auto w-full max-w-xs [@media_(orientation:landscape)_and_(max-height:163.4mm)]:!max-w-[14rem] md:order-none md:mx-0 md:block md:max-w-sm md:flex-1 ${
-              isMobileSearchOpen ? 'block' : 'hidden'
+              isMobileSearchOpen
+                ? 'block [@media_(orientation:landscape)_and_(max-height:163.4mm)]:!block'
+                : 'hidden [@media_(orientation:landscape)_and_(max-height:163.4mm)]:!hidden'
             }`}
           >
             <form
@@ -154,7 +156,7 @@ function Header({ pages = [], productSuggestions = [] }) {
             <button
               type="button"
               onClick={() => setMobileSearchOpen((isOpen) => !isOpen)}
-              className="hidden rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 [@media_(orientation:landscape)_and_(max-height:163.4mm)]:inline-flex md:hidden"
+              className="inline-flex rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 md:hidden [@media_(orientation:landscape)_and_(max-height:163.4mm)]:!inline-flex"
               aria-label="Open product search"
               aria-expanded={isMobileSearchOpen}
             >
