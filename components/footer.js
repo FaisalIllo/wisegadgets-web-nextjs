@@ -34,8 +34,8 @@ function Footer({ categories = [], collections = [] }) {
       </h2>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
-          <div className="grid grid-cols-2 gap-8 xl:col-span-4">
-            <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
+          <div className="xl:col-span-4">
+            <div className="grid grid-cols-2 gap-8">
               {categories.length ? (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">

@@ -14,6 +14,24 @@ function Header({ pages = [], productSuggestions = [] }) {
   const [isHamburgerMenuOpen, setHamburgerMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [isSearchFocused, setSearchFocused] = useState(false)
+  const [isMobileSearchOpen, setMobileSearchOpen] = useState(false)
+  const [showMobileSearchShortcut, setShowMobileSearchShortcut] = useState(false)
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const updateMobileSearchShortcut = () => {
+      const currentScrollY = window.scrollY
+      const isScrollingUp = currentScrollY < lastScrollY
+
+      setShowMobileSearchShortcut(isScrollingUp && currentScrollY > 80)
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', updateMobileSearchShortcut, { passive: true })
+
+    return () => window.removeEventListener('scroll', updateMobileSearchShortcut)
+  }, [])
 
   useEffect(() => {
     if (typeof router.query.q === 'string') {
@@ -47,12 +65,14 @@ function Header({ pages = [], productSuggestions = [] }) {
     })
 
     setHamburgerMenuOpen(false)
+    setMobileSearchOpen(false)
     setSearchFocused(false)
   }
 
   const handleSuggestionClick = (product) => {
     setSearchTerm(product.name)
     setSearchFocused(false)
+    setMobileSearchOpen(false)
     setHamburgerMenuOpen(false)
     router.push(`/products/${product.slug}`)
   }
@@ -69,11 +89,10 @@ function Header({ pages = [], productSuggestions = [] }) {
             >
               <img
                 src="/wisegadgets-logo.PNG"
-                alt=""
-                className="h-9 w-9 rounded-xl"
-                aria-hidden="true"
+                alt="WiseGadgets logo"
+                className="h-10 w-10 rounded-xl md:h-12 md:w-12"
               />
-              <span className="font-bold text-lg">WiseGadgets</span>
+              <span className="font-bold text-lg md:text-xl">WiseGadgets</span>
             </Link>
 
             {/* Navigation Links */}
@@ -93,7 +112,11 @@ function Header({ pages = [], productSuggestions = [] }) {
             )}
           </div>
 
-          <div className="relative order-3 mx-auto w-full max-w-xs md:order-none md:mx-0 md:max-w-sm md:flex-1">
+          <div
+            className={`relative order-3 mx-auto w-full max-w-xs md:order-none md:mx-0 md:block md:max-w-sm md:flex-1 ${
+              isMobileSearchOpen ? 'block' : 'hidden'
+            }`}
+          >
             <form
               role="search"
               onSubmit={handleSearchSubmit}
@@ -146,6 +169,20 @@ function Header({ pages = [], productSuggestions = [] }) {
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
+            <button
+              type="button"
+              onClick={() => setMobileSearchOpen((isOpen) => !isOpen)}
+              className={`md:hidden rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${
+                showMobileSearchShortcut || isMobileSearchOpen
+                  ? 'inline-flex'
+                  : 'hidden'
+              }`}
+              aria-label="Open product search"
+              aria-expanded={isMobileSearchOpen}
+            >
+              <Search className="h-6 w-6" aria-hidden="true" />
+            </button>
+
             {/* Cart */}
             <Link
               href="/cart"
