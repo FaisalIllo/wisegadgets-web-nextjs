@@ -63,10 +63,17 @@ function Header({ pages = [], productSuggestions = [] }) {
         <nav className="flex flex-wrap items-center justify-between gap-3 min-h-16 py-2">
           <div className="flex items-center gap-4">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
-              <p className="font-bold text-lg text-gray-900 hover:text-gray-700 transition">
-                WiseGadgets
-              </p>
+            <Link
+              href="/"
+              className="flex flex-shrink-0 items-center gap-2 text-gray-900 transition hover:text-gray-700"
+            >
+              <img
+                src="/wisegadgets-logo.svg"
+                alt=""
+                className="h-9 w-9 rounded-xl"
+                aria-hidden="true"
+              />
+              <span className="font-bold text-lg">WiseGadgets</span>
             </Link>
 
             {/* Navigation Links */}
@@ -104,7 +111,7 @@ function Header({ pages = [], productSuggestions = [] }) {
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
                 placeholder="Search gadgets"
-                className="ml-2 min-w-0 flex-1 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                className="ml-2 min-w-0 flex-1 bg-transparent text-base text-gray-800 placeholder:text-gray-400 focus:outline-none md:text-sm"
                 autoComplete="off"
               />
               <button
