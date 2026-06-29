@@ -45,7 +45,7 @@ function Cart() {
       value: cartTotal
     })
     const message = [
-      'Hello Wise Gadgets, I would like to checkout this cart:',
+      'Hello G I R I X C O, I would like to checkout this cart:',
       '',
       ...itemLines,
       '',
