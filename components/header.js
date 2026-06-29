@@ -74,7 +74,7 @@ function Header({ pages = [], productSuggestions = [] }) {
                 alt="WiseGadgets logo"
                 className="h-10 w-10 rounded-xl md:h-12 md:w-12"
               />
-              <span className="font-bold text-lg md:text-xl">WiseGadgets</span>
+              <span className="font-bold text-lg md:text-xl">G I R I X C O</span>
             </Link>
 
             {/* Navigation Links */}
