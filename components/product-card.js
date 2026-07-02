@@ -22,7 +22,7 @@ function ProductCard({
   const isSold = sold === true
   const memorySize = getProductMemory(description)
   const soldBadgeClassName = [
-    'absolute right-2 top-2 z-20 h-24 w-24 -rotate-12 sm:right-3 sm:top-3 sm:h-28 sm:w-28',
+    'absolute right-1 top-1 z-20 h-28 w-28 -rotate-12 sm:right-2 sm:top-2 sm:h-36 sm:w-36 md:h-44 md:w-44',
     compactSoldBadgeOnMobile ? 'origin-top-right scale-[0.74] sm:scale-100' : ''
   ].join(' ')
 
@@ -38,11 +38,7 @@ function ProductCard({
           ) : null}
 
           {memorySize ? (
-            <div
-              className={`absolute ${
-                isSold ? 'left-3' : 'right-3'
-              } top-3 z-10 rounded-md bg-indigo-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-xs`}
-            >
+            <div className="absolute left-3 top-3 z-10 rounded-md bg-indigo-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-sm md:px-4 md:py-2 md:text-base">
               {memorySize}
             </div>
           ) : null}
