@@ -2,9 +2,12 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
+import SoldStickerBadge from '@/components/sold-sticker-badge'
+
 export default function ImageCarousel({
   images = [],
-  alt = 'Carousel images'
+  alt = 'Carousel images',
+  isSold = false
 }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -93,10 +96,19 @@ export default function ImageCarousel({
             src={images[currentIndex]}
             alt={`${alt} ${currentIndex + 1}`}
             fill
-            className="object-cover"
+            className={`object-cover ${
+              isSold ? 'brightness-[0.58] grayscale-[0.35]' : ''
+            }`}
             priority
           />
+          {isSold ? (
+            <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
+          ) : null}
         </div>
+
+        {isSold ? (
+          <SoldStickerBadge className="absolute right-4 top-4 z-20 h-32 w-32 -rotate-12 sm:h-40 sm:w-40" />
+        ) : null}
 
         {/* Expand Button */}
         <button
