@@ -18,7 +18,7 @@ function ProductCard({
 
   const [primaryImage] = images
   const isSold = sold === true
-  const memorySize = storage?.trim()
+  const memorySize = typeof storage === 'string' ? storage.trim() : ''
   const soldBadgeClassName = [
     'rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
     compactSoldBadgeOnMobile ? 'origin-top-left scale-[0.69] sm:scale-100' : ''
