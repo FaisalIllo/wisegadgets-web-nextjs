@@ -96,9 +96,14 @@ function Footer({ categories = [], navigationPages = [] }) {
         </div>
         <div className="border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex items-center space-x-3 md:order-2">
-            <span className="text-sm font-medium text-gray-500">
+            <Link
+              href="https://wa.me/message/CML5HDUUZLCQN1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-gray-500 hover:text-gray-900"
+            >
               Join us on WhatsApp
-            </span>
+            </Link>
             <Link
               href="https://wa.me/message/CML5HDUUZLCQN1"
               target="_blank"
