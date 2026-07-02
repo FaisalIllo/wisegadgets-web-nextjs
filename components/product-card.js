@@ -39,7 +39,7 @@ function ProductCard({
           ) : null}
 
           {memorySize ? (
-            <div className="absolute right-3 top-3 z-10 rounded-md bg-red-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-xs">
+            <div className="absolute right-3 top-3 z-10 rounded-md bg-indigo-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-xs">
               {memorySize}
             </div>
           ) : null}
