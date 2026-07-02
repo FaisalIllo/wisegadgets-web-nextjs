@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { formatCurrencyValue } from '@/utils/format-currency-value'
 import { getProductMemory } from '@/utils/get-product-memory'
 import { useSettingsContext } from '@/context/settings'
+import SoldStickerBadge from '@/components/sold-sticker-badge'
 
 function ProductCard({
   id,
@@ -21,8 +22,8 @@ function ProductCard({
   const isSold = sold === true
   const memorySize = getProductMemory(description)
   const soldBadgeClassName = [
-    'absolute left-3 top-3 z-10 rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
-    compactSoldBadgeOnMobile ? 'origin-top-left scale-[0.69] sm:scale-100' : ''
+    'absolute right-1 top-1 z-20 h-24 w-24 -rotate-12 sm:right-2 sm:top-2 sm:h-32 sm:w-32 md:h-40 md:w-40',
+    compactSoldBadgeOnMobile ? 'origin-top-right scale-[0.74] sm:scale-100' : ''
   ].join(' ')
 
   return (
@@ -33,26 +34,34 @@ function ProductCard({
       >
         <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-2 py-4 sm:px-3 sm:py-6 md:px-6 transition-shadow hover:shadow-md">
           {isSold ? (
-            <div className={soldBadgeClassName}>
-              SOLD!
-            </div>
+            <SoldStickerBadge className={soldBadgeClassName} />
           ) : null}
 
           {memorySize ? (
-            <div className="absolute right-3 top-3 z-10 rounded-md bg-indigo-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-xs">
+            <div className="absolute left-3 top-3 z-10 rounded-md bg-indigo-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-sm md:px-4 md:py-2 md:text-base">
               {memorySize}
             </div>
           ) : null}
 
           {primaryImage ? (
-            <Image
-              src={primaryImage.url}
-              height={primaryImage.height}
-              width={primaryImage.width}
-              alt={name}
-              className="transition-all ease-in-out group-hover:scale-105 mx-auto"
-              title={name}
-            />
+            <div className="relative mx-auto block w-fit overflow-hidden rounded-lg">
+              <Image
+                src={primaryImage.url}
+                height={primaryImage.height}
+                width={primaryImage.width}
+                alt={name}
+                className={`transition-all ease-in-out group-hover:scale-105 ${
+                  isSold ? 'brightness-[0.58] grayscale-[0.35]' : ''
+                }`}
+                title={name}
+              />
+              {isSold ? (
+                <div
+                  className="absolute inset-0 bg-black/25"
+                  aria-hidden="true"
+                />
+              ) : null}
+            </div>
           ) : null}
 
           <div className="pt-3 sm:pt-6 text-center">

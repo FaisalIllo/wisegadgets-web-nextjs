@@ -46,6 +46,7 @@ function ProductPageUI({ product }) {
           <ImageCarousel
             images={product.images.map((img) => img.url)}
             alt={product.name}
+            isSold={isSold}
           />
         </div>
       </div>
@@ -66,7 +67,7 @@ function ProductPageUI({ product }) {
         </div>
         {isSold ? (
           <div className="inline-block rounded-md bg-red-600 px-3 py-2 text-xs sm:px-4 sm:py-3 sm:text-sm font-bold uppercase tracking-widest text-white">
-            SOLD!
+            Sold out
           </div>
         ) : (
           <Button onClick={addToCart}>Add to cart</Button>
