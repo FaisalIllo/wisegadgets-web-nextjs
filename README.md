@@ -1,72 +1,140 @@
-# Wise Gadgets Web Application
+# GIRIXCO
 
-Build modern, SEO ready commerce storefronts with Hygraph, Next.js and Tailwind CSS
+**G I R I X C O** is a modern and responsive gadget store web application designed for showcasing smartphones, accessories, and trusted device deals.
 
-[![Clone project](https://graphcms.com/button)](https://app.graphcms.com/clone/d6ae678601534be5a7bde7fba69acd24?name=Commerce%20Shop)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGraphCMS%2Fgraphcms-commerce-starter&env=HYGRAPH_MUTATION_TOKEN,HYGRAPH_QUERY_TOKEN,HYGRAPH_ENDPOINT,NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,STRIPE_SECRET_KEY&envDescription=Stripe%20keys%20and%20GraphCMS%20tokens&envLink=https%3A%2F%2Fgithub.com%2FGraphCMS%2Fgraphcms-commerce-starter%23usage&demo-title=GraphCMS%20Commerce%20Starter&demo-description=Build%20modern%2C%20SEO%20ready%20commerce%20storefronts%20with%20GraphCMS%2C%20Next.js%2C%20Stripe%20and%20Tailwind%20CSS&demo-url=https%3A%2F%2Fcommerce.withheadlesscms.com)
+🔗 **Live Demo:** https://wisegadgets.vercel.app/
 
-## About
+---
 
-This project is an example of how to build fully-functioning Next.js commerce storefront with Hygraph and Stripe. View the demo on [https://commerce.withheadlesscms.com/](https://commerce.withheadlesscms.com/).
+## About the Project
+
+**GIRIXCO** is a clean and user-friendly web platform created to support a growing gadget business with a professional online presence. The platform is designed to help customers explore available gadgets, smartphones, and accessories in a simple, organized, and trustworthy way.
+
+The project focuses on modern design, easy navigation, product visibility, and customer confidence.
+
+---
 
 ## Features
 
-- Fully localized product catalogue built with [Hygraph localization](https://hygraph.com/content-localization) and [Next.js](https://nextjs.org/docs/advanced-features/i18n-routing).
-- Pre-rendered catalogue pages via [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) and [`getStaticPaths`](https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation).
-- Dynamic client-side data fetching via [SWR](https://swr.vercel.app).
-- Localized shopping cart with [`react-use-cart`](https://github.com/notrab/react-use-cart).
-- Hosted checkout and payment flow with [Stripe Checkout](https://stripe.com/docs/payments/checkout).
-- Use the [Hygraph mutation API](https://hygraph.com/mutation-api) with [API Routes](https://nextjs.org/docs/api-routes/introduction) to create orders on successful checkout (via webhook).
-- Multiple currency support.
+* Clean and modern user interface
+* Responsive design for mobile, tablet, and desktop screens
+* Product showcase layout for gadgets and accessories
+* Simple and smooth navigation
+* Professional brand presentation
+* Fast browsing experience
+* Suitable for an online gadget store or product catalogue
+* Deployed online using Vercel
 
-## Usage
+---
 
-> This reference application requires a Stripe account
+## Tech Stack
 
-1. Clone the repository with [`degit`](https://github.com/Rich-Harris/degit) and install project dependencies.
+The project is built using a modern frontend stack:
+
+* **React / Next.js**
+* **JavaScript or TypeScript**
+* **Tailwind CSS**
+* **Vercel** for deployment
+
+---
+
+## Project Purpose
+
+GIRIXCO was created to provide a trusted digital platform for a gadget business. It helps present products professionally, improves customer access to product information, and strengthens the brand’s online identity.
+
+This project is useful for:
+
+* Smartphone businesses
+* Gadget and accessories stores
+* Online product catalogues
+* Small business branding
+* Customer product discovery
+* Digital business presentation
+
+---
+
+## Getting Started
+
+To run this project locally, follow these steps.
+
+### 1. Clone the Repository
 
 ```bash
-npx degit Hygraph/hygraph-commerce-starter#main hygraph-commerce-starter
-cd hygraph-commerce-starter
+git clone https://github.com/your-username/girixco.git
+```
+
+### 2. Navigate to the Project Folder
+
+```bash
+cd girixco
+```
+
+### 3. Install Dependencies
+
+```bash
 npm install
 ```
 
-2. Create a new Hygraph project using the `Commerce Starter` template.
+### 4. Start the Development Server
 
-3. Add a `.env` file by cloning `.env.sample` and providing the required variable values.
-
-> It is recommended you create separate Hygraph [auth tokens](https://hygraph.com/docs/authorization#permanent-auth-tokens) to handle querying and mutating data.
-
-```
-HYGRAPH_MUTATION_TOKEN=
-HYGRAPH_QUERY_TOKEN=
-HYGRAPH_ENDPOINT=
+```bash
+npm run dev
 ```
 
-4. Configure support for more locales or currencies in [`hygraph.config.js`](hygraph.config.js) if required. Learn more [here](#configuration).
+The project should now be running at:
 
-5. Run `npm run dev`
-
-## Configuration
-
-Project configuration for supported locales and currencies is managed in [`hygraph.config.js`](hygraph.config.js).
-
-> It is important that the `locales` array reflects the enabled locales in your Hygraph project.
-
-```js
-module.exports = {
-  locales: [
-    {
-      value: 'en',
-      label: 'English',
-      default: true
-    }
-  ],
-  currencies: [
-    {
-      code: 'NGN',
-      default: true
-    }
-  ]
-}
+```bash
+http://localhost:3000
 ```
+
+---
+
+## Deployment
+
+This project is deployed using **Vercel**.
+
+To deploy your own version:
+
+1. Push the project to GitHub.
+2. Connect the repository to Vercel.
+3. Use the default deployment settings.
+4. Vercel will generate a live project link automatically.
+
+---
+
+## Future Improvements
+
+Possible future improvements include:
+
+* Product search and filtering
+* Product detail pages
+* WhatsApp order button
+* Shopping cart functionality
+* Admin dashboard for product uploads
+* Product availability status
+* Customer reviews and ratings
+* Payment gateway integration
+* Device grading and verification section
+
+---
+
+## Brand Vision
+
+**GIRIXCO** aims to become a trusted and professional brand for gadgets, smartphones, accessories, and future business expansion. The brand focuses on quality, trust, affordability, and customer satisfaction.
+
+---
+
+## Author
+
+**Faisal Illo**
+
+* GitHub: https://github.com/faisalillo
+* Website: https://wisegadgets.vercel.app/
+
+---
+
+## License
+
+This project is open for learning, improvement, and future development.
+
+You may update this section depending on your preferred license.
