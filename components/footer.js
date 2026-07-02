@@ -5,7 +5,7 @@ import { Select } from '@/ui/form'
 import { currencies, locales } from 'hygraph.config'
 import { useSettingsContext } from '@/context/settings'
 
-function Footer({ categories = [], collections = [] }) {
+function Footer({ categories = [] }) {
   const router = useRouter()
   const { activeCurrency, switchCurrency } = useSettingsContext()
 
@@ -26,6 +26,8 @@ function Footer({ categories = [], collections = [] }) {
   }
 
   const currentYear = new Date().getUTCFullYear()
+  const getCategoryHref = (category) =>
+    `/${category.type.toLowerCase()}/${category.slug}`
 
   return (
     <footer className="bg-gray-100 mt-10" aria-labelledby="footerHeading">
@@ -45,33 +47,10 @@ function Footer({ categories = [], collections = [] }) {
                     {categories.map((category) => (
                       <li key={category.id}>
                         <Link
-                          href={`/${category.type.toLowerCase()}/${
-                            category.slug
-                          }`}
+                          href={getCategoryHref(category)}
                           className="text-base text-gray-500 hover:text-gray-900"
                         >
                           {category.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {collections.length ? (
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Collections
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    {collections.map((collection) => (
-                      <li key={collection.id}>
-                        <Link
-                          href={`/${collection.type.toLowerCase()}/${
-                            collection.slug
-                          }`}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {collection.name}
                         </Link>
                       </li>
                     ))}
@@ -113,10 +92,10 @@ function Footer({ categories = [], collections = [] }) {
               href="https://wa.me/message/CML5HDUUZLCQN1"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-500"
+              className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700"
             >
-              <span className="sr-only">WhatsApp</span>
-              <WhatsAppIcon className="h-6 w-6" />
+              <WhatsAppIcon className="h-6 w-6 text-gray-400" />
+              <span className="text-sm font-medium">Join us on WhatsApp</span>
             </Link>
           </div>
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
