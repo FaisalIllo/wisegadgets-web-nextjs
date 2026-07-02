@@ -107,7 +107,7 @@ export default function ImageCarousel({
         </div>
 
         {isSold ? (
-          <SoldStickerBadge className="absolute right-4 top-4 z-20 h-36 w-36 -rotate-12 sm:h-48 sm:w-48" />
+          <SoldStickerBadge className="absolute right-4 top-4 z-20 h-32 w-32 -rotate-12 sm:h-44 sm:w-44" />
         ) : null}
 
         {/* Expand Button */}

@@ -22,7 +22,7 @@ function ProductCard({
   const isSold = sold === true
   const memorySize = getProductMemory(description)
   const soldBadgeClassName = [
-    'absolute right-1 top-1 z-20 h-28 w-28 -rotate-12 sm:right-2 sm:top-2 sm:h-36 sm:w-36 md:h-44 md:w-44',
+    'absolute right-1 top-1 z-20 h-24 w-24 -rotate-12 sm:right-2 sm:top-2 sm:h-32 sm:w-32 md:h-40 md:w-40',
     compactSoldBadgeOnMobile ? 'origin-top-right scale-[0.74] sm:scale-100' : ''
   ].join(' ')
 

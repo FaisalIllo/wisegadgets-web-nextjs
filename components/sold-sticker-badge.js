@@ -63,7 +63,7 @@ function SoldStickerBadge({ className = '' }) {
         <g
           mask={`url(#${distressMaskId})`}
           fill="none"
-          stroke="#65717c"
+          stroke="#ff1f1f"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -72,15 +72,15 @@ function SoldStickerBadge({ className = '' }) {
           <circle cx="500" cy="500" r="245" strokeWidth="5" />
 
           <g transform="rotate(-15 500 500)">
-            <rect x="80" y="405" width="840" height="190" fill="#ffffff" />
+            <rect x="80" y="405" width="840" height="190" fill="transparent" />
             <line x1="80" y1="405" x2="920" y2="405" strokeWidth="12" />
             <line x1="80" y1="595" x2="920" y2="595" strokeWidth="12" />
-            <circle cx="115" cy="500" r="16" fill="#65717c" stroke="none" />
-            <circle cx="885" cy="500" r="16" fill="#65717c" stroke="none" />
+            <circle cx="115" cy="500" r="16" fill="#ff1f1f" stroke="none" />
+            <circle cx="885" cy="500" r="16" fill="#ff1f1f" stroke="none" />
             <text
               x="500"
               y="548"
-              fill="#65717c"
+              fill="#ff1f1f"
               stroke="none"
               fontFamily="Arial Narrow, Roboto Condensed, Arial, sans-serif"
               fontSize="145"
