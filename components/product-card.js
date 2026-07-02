@@ -2,10 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { formatCurrencyValue } from '@/utils/format-currency-value'
+import { getProductMemory } from '@/utils/get-product-memory'
 import { useSettingsContext } from '@/context/settings'
 
 function ProductCard({
   id,
+  description,
   images,
   name,
   price,
@@ -17,6 +19,7 @@ function ProductCard({
 
   const [primaryImage] = images
   const isSold = sold === true
+  const memorySize = getProductMemory(description)
   const soldBadgeClassName = [
     'absolute left-3 top-3 z-10 rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
     compactSoldBadgeOnMobile ? 'origin-top-left scale-[0.69] sm:scale-100' : ''
@@ -32,6 +35,12 @@ function ProductCard({
           {isSold ? (
             <div className={soldBadgeClassName}>
               SOLD!
+            </div>
+          ) : null}
+
+          {memorySize ? (
+            <div className="absolute right-3 top-3 z-10 rounded-md bg-red-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md sm:px-3 sm:py-1.5 sm:text-xs">
+              {memorySize}
             </div>
           ) : null}
 
