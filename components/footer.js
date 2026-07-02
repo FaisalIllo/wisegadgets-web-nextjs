@@ -5,11 +5,14 @@ import { Select } from '@/ui/form'
 import { currencies, locales } from 'hygraph.config'
 import { useSettingsContext } from '@/context/settings'
 
-function Footer({ categories = [], collections = [] }) {
+function Footer({ categories = [], navigationPages = [] }) {
   const router = useRouter()
   const { activeCurrency, switchCurrency } = useSettingsContext()
 
   const activeLocale = locales.find((locale) => locale.value === router.locale)
+  const accessoriesHeaderPage = navigationPages.find(
+    (page) => page.name?.toLowerCase() === 'accessories'
+  )
 
   const updateCurrency = (event) => {
     const currency = currencies.find(
@@ -25,6 +28,15 @@ function Footer({ categories = [], collections = [] }) {
     router.push(path, path, { locale: event.target.value })
   }
 
+  const getCategoryHref = (category) => {
+    const linkedCategory =
+      category.name?.toLowerCase() === 'accessories' && accessoriesHeaderPage
+        ? accessoriesHeaderPage
+        : category
+
+    return `/${linkedCategory.type.toLowerCase()}/${linkedCategory.slug}`
+  }
+
   const currentYear = new Date().getUTCFullYear()
 
   return (
@@ -35,50 +47,25 @@ function Footer({ categories = [], collections = [] }) {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
           <div className="xl:col-span-4">
-            <div className="grid grid-cols-2 gap-8">
-              {categories.length ? (
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Categories
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    {categories.map((category) => (
-                      <li key={category.id}>
-                        <Link
-                          href={`/${category.type.toLowerCase()}/${
-                            category.slug
-                          }`}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {category.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {collections.length ? (
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Collections
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    {collections.map((collection) => (
-                      <li key={collection.id}>
-                        <Link
-                          href={`/${collection.type.toLowerCase()}/${
-                            collection.slug
-                          }`}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {collection.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
+            {categories.length ? (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                  Categories
+                </h3>
+                <ul className="mt-4 space-y-4">
+                  {categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        href={getCategoryHref(category)}
+                        className="text-base text-gray-500 hover:text-gray-900"
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
           <div className="mt-12 xl:mt-0">
             <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
@@ -108,7 +95,10 @@ function Footer({ categories = [], collections = [] }) {
           </div>
         </div>
         <div className="border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
-          <div className="flex space-x-6 md:order-2">
+          <div className="flex items-center space-x-3 md:order-2">
+            <span className="text-sm font-medium text-gray-500">
+              Join us on WhatsApp
+            </span>
             <Link
               href="https://wa.me/message/CML5HDUUZLCQN1"
               target="_blank"

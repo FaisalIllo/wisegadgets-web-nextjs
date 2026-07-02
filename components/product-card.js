@@ -11,14 +11,17 @@ function ProductCard({
   price,
   slug,
   sold,
+  description,
+  variants = [],
   compactSoldBadgeOnMobile = false
 }) {
   const { activeCurrency } = useSettingsContext()
 
   const [primaryImage] = images
   const isSold = sold === true
+  const memorySize = getProductMemorySize({ description, name, variants })
   const soldBadgeClassName = [
-    'absolute left-3 top-3 z-10 rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
+    'rounded-md bg-red-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm',
     compactSoldBadgeOnMobile ? 'origin-top-left scale-[0.69] sm:scale-100' : ''
   ].join(' ')
 
@@ -29,11 +32,18 @@ function ProductCard({
         className="group no-underline w-full h-full flex"
       >
         <div className="bg-gray-50 rounded-xl cursor-pointer w-full overflow-hidden relative px-2 py-4 sm:px-3 sm:py-6 md:px-6 transition-shadow hover:shadow-md">
-          {isSold ? (
-            <div className={soldBadgeClassName}>
-              SOLD!
-            </div>
-          ) : null}
+          <div className="absolute left-3 top-3 z-10 flex flex-col items-start gap-2">
+            {isSold ? (
+              <div className={soldBadgeClassName}>
+                SOLD!
+              </div>
+            ) : null}
+            {memorySize ? (
+              <div className="rounded-md bg-indigo-600 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-md sm:px-4 sm:py-3 sm:text-sm">
+                {memorySize}
+              </div>
+            ) : null}
+          </div>
 
           {primaryImage ? (
             <Image
@@ -64,3 +74,38 @@ function ProductCard({
 }
 
 export default ProductCard
+
+function getProductMemorySize({ description, name, variants = [] }) {
+  const searchableText = [
+    name,
+    description,
+    ...variants.map((variant) => variant?.name)
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  const storageMatch = searchableText.match(
+    /(?:storage|memory|rom|internal(?:\s+memory)?)[^0-9]{0,12}(\d+(?:\.\d+)?)\s*(tb|gb)\b/i
+  )
+
+  if (storageMatch) {
+    return formatMemorySize(storageMatch[1], storageMatch[2])
+  }
+
+  const capacityMatches = [...searchableText.matchAll(/(\d+(?:\.\d+)?)\s*(tb|gb)\b/gi)]
+
+  const likelyStorageMatch = capacityMatches.find((match) => {
+    const amount = Number(match[1])
+    const unit = match[2].toLowerCase()
+
+    return unit === 'tb' || amount >= 32
+  })
+
+  return likelyStorageMatch
+    ? formatMemorySize(likelyStorageMatch[1], likelyStorageMatch[2])
+    : null
+}
+
+function formatMemorySize(amount, unit) {
+  return `${Number(amount)}${unit.toUpperCase()}`
+}
