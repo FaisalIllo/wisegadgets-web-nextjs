@@ -5,7 +5,7 @@ import { Select } from '@/ui/form'
 import { currencies, locales } from 'hygraph.config'
 import { useSettingsContext } from '@/context/settings'
 
-function Footer({ categories = [] }) {
+function Footer({ categories = [], navigationPages = [] }) {
   const router = useRouter()
   const { activeCurrency, switchCurrency } = useSettingsContext()
 
@@ -26,8 +26,16 @@ function Footer({ categories = [] }) {
   }
 
   const currentYear = new Date().getUTCFullYear()
-  const getCategoryHref = (category) =>
-    `/${category.type.toLowerCase()}/${category.slug}`
+  const getPageHref = (page) => `/${page.type.toLowerCase()}/${page.slug}`
+  const getCategoryHref = (category) => {
+    const matchingHeaderPage = navigationPages.find(
+      (page) =>
+        page.name?.toLowerCase() === category.name?.toLowerCase() ||
+        page.slug === category.slug
+    )
+
+    return getPageHref(matchingHeaderPage ?? category)
+  }
 
   return (
     <footer className="bg-gray-100 mt-10" aria-labelledby="footerHeading">
