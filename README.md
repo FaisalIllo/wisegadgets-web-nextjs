@@ -53,55 +53,6 @@ This project is useful for:
 
 ---
 
-## Getting Started
-
-To run this project locally, follow these steps.
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/girixco.git
-```
-
-### 2. Navigate to the Project Folder
-
-```bash
-cd girixco
-```
-
-### 3. Install Dependencies
-
-```bash
-npm install
-```
-
-### 4. Start the Development Server
-
-```bash
-npm run dev
-```
-
-The project should now be running at:
-
-```bash
-http://localhost:3000
-```
-
----
-
-## Deployment
-
-This project is deployed using **Vercel**.
-
-To deploy your own version:
-
-1. Push the project to GitHub.
-2. Connect the repository to Vercel.
-3. Use the default deployment settings.
-4. Vercel will generate a live project link automatically.
-
----
-
 ## Future Improvements
 
 Possible future improvements include:
