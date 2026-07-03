@@ -11,7 +11,7 @@ function Layout({ children, footer, navigation }) {
       <DefaultSeo {...defaultSeo} />
       <Header {...navigation} />
       <div className="max-w-7xl min-h-screen mx-auto mt-10 px-4 sm:px-6">{children}</div>
-      <Footer {...footer} />
+      <Footer {...footer} navigationPages={navigation.pages} />
     </React.Fragment>
   )
 }
