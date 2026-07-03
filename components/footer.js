@@ -35,35 +35,33 @@ function Footer({ categories = [] }) {
         Footer
       </h2>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
+        <div className="grid grid-cols-2 gap-6 pb-8 xl:grid-cols-5 xl:gap-8">
           <div className="xl:col-span-4">
-            <div className="grid grid-cols-2 gap-8">
-              {categories.length ? (
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Categories
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    {categories.map((category) => (
-                      <li key={category.id}>
-                        <Link
-                          href={getCategoryHref(category)}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {category.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
+            {categories.length ? (
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 tracking-wider uppercase sm:text-sm">
+                  Categories
+                </h3>
+                <ul className="mt-4 space-y-3 sm:space-y-4">
+                  {categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        href={getCategoryHref(category)}
+                        className="text-sm text-gray-500 hover:text-gray-900 sm:text-base"
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
-          <div className="mt-12 xl:mt-0">
-            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+          <div className="min-w-0">
+            <h3 className="text-xs font-semibold text-gray-400 tracking-wider uppercase sm:text-sm">
               Language &amp; Currency
             </h3>
-            <form className="mt-4 space-y-4 sm:max-w-xs">
+            <form className="mt-4 space-y-3 sm:max-w-xs sm:space-y-4">
               <Select
                 className="w-full"
                 defaultValue={activeLocale.value}
@@ -95,7 +93,9 @@ function Footer({ categories = [] }) {
               className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700"
             >
               <WhatsAppIcon className="h-6 w-6 text-gray-400" />
-              <span className="text-sm font-medium">Join us on WhatsApp</span>
+              <span className="text-sm font-medium">
+                Chat with us on WhatsApp
+              </span>
             </Link>
           </div>
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
