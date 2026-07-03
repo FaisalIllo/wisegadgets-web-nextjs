@@ -2,8 +2,6 @@
 
 **G I R I X C O** is a modern and responsive gadget store web application designed for showcasing smartphones, accessories, and trusted device deals.
 
-🔗 **Live Demo:** https://wisegadgets.vercel.app/
-
 ---
 
 ## About the Project
@@ -80,7 +78,6 @@ Possible future improvements include:
 **Faisal Illo**
 
 * GitHub: https://github.com/faisalillo
-* Website: https://wisegadgets.vercel.app/
 
 ---
 
