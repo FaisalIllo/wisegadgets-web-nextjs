@@ -5,6 +5,8 @@ import { defaultUrl } from 'next-seo.config'
 
 function SEO({ image, ...props }) {
   const router = useRouter()
+  const path = router.asPath.split(/[?#]/)[0]
+  const canonical = `${defaultUrl}${path === '/' ? '' : path}`
 
   const SEO = {
     openGraph: {
@@ -16,9 +18,10 @@ function SEO({ image, ...props }) {
           }
         ]
       }),
-      url: defaultUrl + router.asPath,
+      url: canonical,
       ...props
     },
+    canonical,
     ...props
   }
 

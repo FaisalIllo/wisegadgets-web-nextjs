@@ -3,10 +3,16 @@ import * as React from 'react'
 import getAllProducts from '@/lib/get-all-products'
 import getPageData from '@/lib/get-page-data'
 import ProductGrid from '@/components/product-grid'
+import SEO from '@/components/seo'
 
 function IndexPage({ products, searchQuery }) {
   return (
     <React.Fragment>
+      <SEO
+        title="Smartphones, Gadgets & Accessories"
+        description="Shop smartphones, gadgets, and accessories from GIRIXCO. Discover quality devices and trusted deals in one convenient place."
+        noindex={Boolean(searchQuery)}
+      />
       {searchQuery && (
         <div className="mb-6">
           <p className="text-sm font-medium text-gray-500">
