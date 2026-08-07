@@ -70,8 +70,8 @@ function Header({ pages = [], productSuggestions = [] }) {
               className="flex flex-shrink-0 items-center gap-2 text-gray-900 transition hover:text-gray-700"
             >
               <img
-                src="/wisegadgets-logo.PNG"
-                alt="WiseGadgets logo"
+                src="/girixco-logo.png"
+                alt="GIRIXCO logo"
                 className="h-10 w-10 rounded-xl md:h-12 md:w-12"
               />
               <span className="font-bold text-lg md:text-xl">G I R I X C O</span>

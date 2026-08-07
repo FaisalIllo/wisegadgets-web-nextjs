@@ -1,0 +1,17 @@
+{
+  "name": "GIRIXCO",
+  "short_name": "GIRIXCO",
+  "description": "Shop smartphones, gadgets, and accessories from GIRIXCO.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/girixco-logo.png",
+      "sizes": "300x300",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
