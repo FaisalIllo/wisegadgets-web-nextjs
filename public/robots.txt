@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://girixco.vercel.app/sitemap.xml
