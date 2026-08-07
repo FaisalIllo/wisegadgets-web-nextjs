@@ -14,7 +14,9 @@ const seo = {
   canonical: url,
   additionalMetaTags: [
     { name: 'application-name', content: 'GIRIXCO' },
-    { name: 'apple-mobile-web-app-title', content: 'GIRIXCO' }
+    { name: 'apple-mobile-web-app-title', content: 'GIRIXCO' },
+    { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+    { name: 'theme-color', content: '#ffffff' }
   ],
   additionalLinkTags: [
     { rel: 'icon', href: '/girixco-logo.png', type: 'image/png' },
